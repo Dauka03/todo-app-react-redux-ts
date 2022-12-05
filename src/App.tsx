@@ -1,24 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import { Link, Route, Router, Routes } from 'react-router-dom';
+import ProjectList from './components/ProjectList'
+import TaskList from './components/TaskList';
+import { useTypedSelector } from './hooks/useTypedSelector';
 function App() {
+  const {loading,error,projects} = useTypedSelector(state=>state.projects)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Link to='/' >Projects</Link>
+      
+  <Routes>
+    <Route path='/' element={<ProjectList/>}/>
+    <Route path="/project/:id" element={<TaskList />} />
+  </Routes>
+
+      
+        {/* {projects.map((proj)=>(
+          <div key={proj.id}>
+          <TaskList/>
+          </div>
+        ))} */}
     </div>
   );
 }
